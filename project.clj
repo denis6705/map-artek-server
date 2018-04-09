@@ -11,6 +11,7 @@
                  [ring/ring-jetty-adapter "1.5.1"]
 				 [org.clojure/data.json "0.2.6"]
 				 [org.clojure/core.async "0.4.474"]
+				 [overtone/at-at "1.2.0"]
                  ]
   :main ^:skip-aot map-artek-server.core
   :target-path "target/%s"

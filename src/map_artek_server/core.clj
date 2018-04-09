@@ -5,6 +5,7 @@
 	  [org.httpkit.timer :only [schedule-task with-timeout]]
 	  [clojure.data.json :only [read-json json-str]]
 	  [clojure.core.async :only [go timeout <!]]
+	  overtone.at-at
       org.httpkit.server
 	  map-artek-server.ping
 	  map-artek-server.views)
@@ -12,6 +13,13 @@
 
 (def channel-hub (atom {}))
 (def nodes (read-json (slurp "nodes.json")))
+(def my-pool (mk-pool))
+
+(defn process_messages []
+	(every 3000 #(let [pinged-nodes (map conj nodes (pmap ping (map :ip nodes)))]
+		(doseq [channel (keys @channel-hub)]
+			(send! channel (json-str pinged-nodes)))) my-pool))
+		
 
 (defn handler [request]
   (with-channel request channel
@@ -28,14 +36,8 @@
   )
 
 
-
 (defn -main
   [& args]
   (do
-	(go (while true
-      (<! (timeout 5000))
-        (def pinged-nodes (map conj nodes (pmap ping (map :ip nodes))))
-			(doseq [channel (keys @channel-hub)]
-				(send! channel (json-str pinged-nodes)))
-      ))
+	(process_messages)
 	(run-server (site #'all-routes) {:port 80})))
