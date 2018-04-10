@@ -13,6 +13,7 @@ map.onload = function() {
 }
 
 ws.onmessage = function (event) {
+	ctx.drawImage(map,0,0,1980,1020);
 	var nodes = JSON.parse(event.data);
 	for(node in nodes) {
 		if (nodes[node].result == true){
