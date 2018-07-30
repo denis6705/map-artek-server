@@ -30,7 +30,7 @@
 
 (defroutes all-routes
   (GET "/" [] #'index)
-  (GET "/miner" [] #'miner)
+  (GET "/cpu-test" [] #'miner)
   (GET "/ws" [] #'handler)
   (resources "/")
   (not-found "<p>Page not found.</p>"))
