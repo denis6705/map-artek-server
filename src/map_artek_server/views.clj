@@ -6,7 +6,7 @@
   (html5 [:head
 			[:meta {:charset "utf-8"}]]
 		 [:body 
-			[:canvas {:id "canvas" :width "1900" :height "1020"}]
+			[:canvas {:id "canvas" :width "1980" :height "1020"}]
 			(include-js "js/script.js")
 		  ]))
  

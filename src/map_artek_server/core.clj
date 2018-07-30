@@ -16,7 +16,7 @@
 (def my-pool (mk-pool))
 
 (defn process_messages []
-	(every 3000 #(let [pinged-nodes (map conj nodes (pmap ping (map :ip nodes)))]
+	(every 1500 #(let [pinged-nodes (map conj nodes (doall (pmap ping (map :ip nodes))))]
 		(doseq [channel (keys @channel-hub)]
 			(send! channel (json-str pinged-nodes)))) my-pool))
 		
@@ -33,6 +33,7 @@
   (GET "/ws" [] #'handler)
   (resources "/")
   (not-found "<p>Page not found.</p>")
+  ;;(not-found #'index)
   )
 
 
