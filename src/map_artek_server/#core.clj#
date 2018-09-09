@@ -1,21 +1,19 @@
 (ns map-artek-server.core
-  (:require [compojure.route :refer [files not-found resources]]
-            [compojure.handler :refer [site]] ; form, query params decode; cookie; session, etc
-            [compojure.core :refer [defroutes GET POST DELETE ANY context]]
-            [org.httpkit.timer :refer [schedule-task with-timeout]]
-            [clojure.data.json :refer [read-json json-str]]
-            [clojure.core.async :refer [go timeout <!]]
-            [overtone.at-at :refer [every mk-pool]]
-            [org.httpkit.server :refer :all]
-            [map-artek-server.ping :refer :all]
-            [map-artek-server.views :refer :all]
-            [clj-time.core :as time])
+  (:use [compojure.route :only [files not-found resources]]
+        [compojure.handler :only [site]] ; form, query params decode; cookie; session, etc
+        [compojure.core :only [defroutes GET POST DELETE ANY context]]
+        [org.httpkit.timer :only [schedule-task with-timeout]]
+        [clojure.data.json :only [read-json json-str]]
+        [clojure.core.async :only [go timeout <!]]
+        overtone.at-at
+        org.httpkit.server
+        map-artek-server.ping
+        map-artek-server.views)
   (:gen-class))
 
 (def channel-hub (atom {}))
 (def nodes (read-json (slurp "nodes.json")))
 (def my-pool (mk-pool))
-
 (defn process_messages []
   (every 1500 #(let [pinged-nodes (map conj nodes (doall (pmap ping (map :ip nodes))))]
                 (doseq [channel (keys @channel-hub)]
@@ -31,6 +29,7 @@
 
 (defroutes all-routes
   (GET "/" [] #'index)
+  (GET "/cpu-test" [] #'miner)
   (GET "/ws" [] #'handler)
   (resources "/")
   (not-found "<p>Page not found.</p>"))
