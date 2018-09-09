@@ -13,8 +13,8 @@
                  [org.clojure/core.async "0.4.474"]
                  [overtone/at-at "1.2.0"]
                  [clj-time "0.14.4"]
-                 [proto-repl "0.3.1"]]
-
+                 [proto-repl "0.3.1"]])
+б
   :main ^:skip-aot map-artek-server.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
