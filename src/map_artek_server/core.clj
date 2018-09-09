@@ -7,7 +7,7 @@
             [clojure.core.async :refer [go timeout <!]]
             [overtone.at-at :refer [every mk-pool]]
             [org.httpkit.server :refer :all]
-            [map-artek-server.ping :refer :all]
+            [map-artek-server.ping :refer [ping]]
             [map-artek-server.views :refer :all]
             [clj-time.core :as time])
   (:gen-class))
