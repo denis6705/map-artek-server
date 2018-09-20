@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://127.0.0.1:80/ws");
+var ws = new WebSocket("ws://127.0.0.1:8080/ws");
 ctx = document.getElementById("canvas").getContext("2d");
 ctx.font = "italic 10pt Arial";
 map = new Image();
@@ -24,7 +24,8 @@ canvas.onclick = function(event) {
 
 	nodes.forEach( (n) => {
 		if( (n.x >= X1) && (n.y >= Y1) && (n.x <= X2) && (n.y <= Y2)) {
-			alert(n.name + "\nПинг: " + (n.result ? n.time.toFixed(2) + "мс":"    :\'(") + "\nIP: " + n.ip )
+			//alert(n.name + "\nПинг: " + (n.result ? n.ping.toFixed(2) + "мс":"    :\'(") + "\nIP: " + n.ip )
+			window.document.location.href = window.location.href + "nodes/" + n.name;
 		}
 	})
 }
