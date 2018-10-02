@@ -52,5 +52,5 @@
 (defn -main
   [& args]
    (process_messages)
-   (reset! server (run-server (site #'all-routes) {:port 8080}))
-   (println "Server started on 127.0.0.1:8080"))
+   (reset! server (run-server (site #'all-routes) {:port 80}))
+   (println "Server started on 127.0.0.1:80"))
