@@ -1,4 +1,5 @@
-var ws = new WebSocket("ws://172.16.9.11:80/ws");
+var server_ip = document.getElementById("server-ip").className
+var ws = new WebSocket("ws://" + server_ip + "80/ws");
 var node_name = document.getElementById("name").className
 var b = []
 b.push(node_name)

@@ -1,4 +1,5 @@
-var ws = new WebSocket("ws://172.16.9.11:80/ws");
+var server_ip = document.getElementById("server-ip").className
+var ws = new WebSocket("ws://" + server_ip + "80/ws");
 ctx = document.getElementById("canvas").getContext("2d");
 ctx.font = "italic 10pt Arial";
 map = new Image();
