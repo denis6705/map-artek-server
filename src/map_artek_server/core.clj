@@ -1,15 +1,14 @@
 (ns map-artek-server.core
   (:require [compojure.route :refer [files not-found resources]]
-            [compojure.handler :refer [site]] ; form, query params decode; cookie; session, etc
+            [compojure.handler :refer [site]]
             [compojure.core :refer [defroutes GET POST DELETE ANY context]]
             [org.httpkit.timer :refer [schedule-task with-timeout]]
             [clojure.data.json :refer [read-json json-str]]
-            [clojure.core.async :refer [go timeout <!]]
             [overtone.at-at :refer [every mk-pool]]
             [org.httpkit.server :refer :all]
             [map-artek-server.ping :refer [ping]]
             [map-artek-server.views :refer :all]
-            [clj-memory-meter.core :as mm]
+            [map-artek-server.database :refer [push-pings-db]]
             [clj-time.core :as time]
             [clj-time.local :as l])
   (:use [clojure.tools.namespace.repl :only (refresh)])
@@ -26,12 +25,21 @@
     (@server :timeout 100)
     (reset! server nil)))
 
-(defn process_messages []
-  (every 1500 #(let [pinged-nodes (map conj nodes (doall (pmap ping (map :ip nodes))))]
-                (doseq [channel (keys @channel-hub)]
+(defn process_messages
+  "Отправляет данные о пингах клиентам каждые n миллисекунд"
+  [n]
+  (every n #(let [pinged-nodes (map conj nodes (doall (pmap ping (map :ip nodes))))]
                   ;(swap! ping-history conj {:nodes pinged-nodes :time (l/local-now)})
+              (doseq [channel (keys @channel-hub)]
                   (send! channel (json-str pinged-nodes)))) my-pool))
 
+(defn write-to-base
+  "Записывает в базу пинги каждые n миллисекунд"
+  [n]
+  (every n #(let [pinged-nodes (map conj nodes (doall (pmap ping (map :ip nodes))))]
+                (let [nds (mapv (fn [node]
+                                 (select-keys node [:ping :name])) pinged-nodes)]
+                  (push-pings-db (map conj nds (repeat (count nds) {:time (l/local-now)}))))) my-pool))
 
 (defn handler [request]
   (with-channel request channel
@@ -48,10 +56,10 @@
 
 
 
-
 (defn -main
   [& args]
-   (process_messages)
+   (process_messages 1500)
+   (write-to-base 5000)
    (reset! server (run-server (site #'all-routes) {:port 80}))
    (println "Server started on 127.0.0.1:80"))
 

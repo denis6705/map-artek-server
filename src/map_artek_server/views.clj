@@ -1,6 +1,8 @@
 (ns map-artek-server.views
   (:use
-     [hiccup.page :only (html5 include-css include-js)]))
+     [hiccup.page :only (html5 include-css include-js)]
+     [clojure.data.json :refer [read-json json-str]]
+     [map-artek-server.database :refer [get-pings-for-node]]))
 
 (def current-server-ip (str (.getHostAddress (java.net.InetAddress/getLocalHost))))
 
@@ -23,6 +25,7 @@
         [:div {:id "server-ip" :class current-server-ip}]
         [:div {:id "name" :class (:node-name params)}]
         [:div {:id "chart"}]
+        [:script   (json-str {:pings (get-pings-for-node (:node-name params))})]
         (include-js "js/d3.min.js")
         (include-js "js/c3.min.js")
         (include-js "js/show-pings.js")]))
