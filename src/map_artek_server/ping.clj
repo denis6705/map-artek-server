@@ -7,8 +7,8 @@
         start (. System (nanoTime))
         result (.isReachable addr timeout)
         total (/ (double (- (. System (nanoTime)) start)) 1000000.0)]
-    {:ping total
+    {:ping (if result total 9999)
      :result result}))
 (defn ping
   [ip]
-  (timed-ping ip 500))
+  (timed-ping ip 1000))

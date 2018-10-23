@@ -20,6 +20,7 @@
 (def my-pool (mk-pool))
 (defonce server (atom nil))
 (def ping-history (atom []))
+
 (defn stop-server []
   (when-not (nil? @server)
     (@server :timeout 100)
@@ -58,8 +59,8 @@
 
 (defn -main
   [& args]
-   (process_messages 1500)
-   (write-to-base 5000)
+   (process_messages 2000)
+   (write-to-base 10000)
    (reset! server (run-server (site #'all-routes) {:port 80}))
    (println "Server started on 127.0.0.1:80"))
 

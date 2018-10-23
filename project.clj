@@ -12,7 +12,7 @@
                  [org.clojure/data.json "0.2.6"]
                  [org.clojure/core.async "0.4.474"]
                  [overtone/at-at "1.2.0"]
-                 [clj-time "0.14.4"]
+                 [clj-time "0.15.0"]
                  [org.clojure/java.jdbc "0.7.8"]
                  [org.xerial/sqlite-jdbc "3.8.6"]
                  [proto-repl "0.3.1"]]

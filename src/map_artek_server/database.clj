@@ -4,7 +4,9 @@
      [clj-time.core :as t]
      [clj-time.local :as l]
      [clj-time.coerce :as c]
-     [clj-time.jdbc]))
+     [clj-time.format :as f]
+     [clj-time.jdbc]
+     [clojure.pprint :as p :refer [pprint]]))
 
 
 (def testdata
@@ -39,4 +41,3 @@
                                           ))
     (catch Exception e (println e))))
 
-(get-pings-for-node "Хрустальный")
