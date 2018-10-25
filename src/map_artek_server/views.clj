@@ -25,7 +25,6 @@
         [:div {:id "server-ip" :class current-server-ip}]
         [:div {:id "name" :class (:node-name params)}]
         [:div {:id "chart"}]
-        [:script   (json-str  {:pings (get-pings-for-node (:node-name params))})]
         (include-js "js/d3.min.js")
         (include-js "js/c3.min.js")
         (include-js "js/show-pings.js")]))
