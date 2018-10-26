@@ -29,3 +29,17 @@
         (include-js "js/c3.min.js")
         (include-js "js/show-pings.js")]))
 
+(defn nodes-stats [{:keys [params] :as req}]
+  (html5
+     [:head
+          [:title (:node-name params)]
+          [:meta {:charset "utf-8"}]
+          (include-css "js/c3.min.css")]
+     [:body
+        [:div {:id "server-ip" :class current-server-ip}]
+        [:div {:id "name" :class (:node-name params)}]
+        [:div {:id "chart"}]
+        (include-js "js/d3.min.js")
+        (include-js "js/c3.min.js")
+        (include-js "js/show-pings.js")]))
+
