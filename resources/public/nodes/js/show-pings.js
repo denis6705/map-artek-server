@@ -2,14 +2,27 @@ var server_ip = document.getElementById("server-ip").className
 var ws = new WebSocket("ws://" + server_ip + ":80/ws");
 var node_name = document.getElementById("name").className
 var b = []
+var x = []
 b.push("")
+x.push('x')
 var chart = c3.generate({
     bindto: '#chart',
     data: {
+      x : 'x',
       columns: [
-        b
-
+        b,
+        x
       ]
+    },
+    axis : {
+      x : {
+        type : 'timeseries',
+        tick : {
+          format: function(x) { return x.toDateString() + "::" +
+           x.getHours() + ":" + x.getMinutes() + ":" + x.getSeconds();
+          }
+        }
+      }
     }
 });
 var initialized = false
@@ -22,11 +35,14 @@ ws.onmessage = function(e) {
         initialized = true;
       }
 			b.push(n.ping)
+      x.push(new Date())
 		}
 	})
 	chart.load({
         columns: [
-            b
+            b,
+            x
         ]
-    });
+    }
+    );
 }
