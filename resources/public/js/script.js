@@ -14,7 +14,6 @@ map.onload = function() {
 }
 
 
-
 canvas.onclick = function(event) {
 	let X1 = event.layerX - 10;
 	let Y1 = event.layerY - 10;
@@ -29,6 +28,10 @@ canvas.onclick = function(event) {
 			window.document.location.href = window.location.href + "nodes/" + n.name;
 		}
 	})
+}
+
+ws.onclose = function (event) {
+  alert("Сервер отказался отправлять вам данные")
 }
 
 

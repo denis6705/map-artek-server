@@ -2,7 +2,8 @@
   (:use
      [hiccup.page :only (html5 include-css include-js)]
      [clojure.data.json :refer [read-json json-str]]
-     [map-artek-server.database :refer [get-pings-for-node]]))
+     [clj-time.local :as l]
+     ))
 
 (def current-server-ip (str (.getHostAddress (java.net.InetAddress/getLocalHost))))
 
@@ -29,17 +30,19 @@
         (include-js "js/c3.min.js")
         (include-js "js/show-pings.js")]))
 
-(defn nodes-stats [{:keys [params] :as req}]
+(defn node-from-db [{:keys [params] :as req}]
   (html5
      [:head
           [:title (:node-name params)]
           [:meta {:charset "utf-8"}]
           (include-css "js/c3.min.css")]
      [:body
+        [:input {:type "datetime-local" :id "time1" }]
+        [:input {:type "datetime-local" :id "time2" }]
+        [:button {:type "button" :id "btn"} "Построить"]
         [:div {:id "server-ip" :class current-server-ip}]
-        [:div {:id "name" :class (:node-name params)}]
         [:div {:id "chart"}]
         (include-js "js/d3.min.js")
         (include-js "js/c3.min.js")
-        (include-js "js/show-pings.js")]))
+        (include-js "js/get-from-db.js")]))
 

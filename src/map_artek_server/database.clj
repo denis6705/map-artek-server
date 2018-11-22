@@ -28,9 +28,9 @@
   [nodes]
   (j/insert-multi! db :nodes nodes))
 
-(defn get-pings-for-node
-  [name]
-  (j/query db ["select * from nodes where name =?" name]))
+(defn get-pings-for-node-between
+  [node-name time1 time2]
+  (j/query db ["SELECT * FROM nodes WHERE  name =? AND time BETWEEN ? AND ?" node-name time1 time2 ]))
 
 (defn create-db []
   (try (j/db-do-commands db
@@ -40,4 +40,5 @@
                                           [:time :text]]
                                           ))
     (catch Exception e (println e))))
+
 
