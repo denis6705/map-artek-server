@@ -38,6 +38,7 @@
           (include-css "js/c3.min.css")]
      [:body
         [:input {:type "datetime-local" :id "time1" }]
+        [:div {:id "name" :class (:node-name params)}]
         [:input {:type "datetime-local" :id "time2" }]
         [:button {:type "button" :id "btn"} "Построить"]
         [:div {:id "server-ip" :class current-server-ip}]

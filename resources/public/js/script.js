@@ -9,6 +9,7 @@ red.src = "images/red.png";
 green = new Image();
 green.src = "images/green.png";
 var nodes = {};
+
 map.onload = function() {
 	ctx.drawImage(map,0,0,1980,1020);
 }
@@ -25,13 +26,18 @@ canvas.onclick = function(event) {
 	nodes.forEach( (n) => {
 		if( (n.x >= X1) && (n.y >= Y1) && (n.x <= X2) && (n.y <= Y2)) {
 			//alert(n.name + "\nПинг: " + (n.result ? n.ping.toFixed(2) + "мс":"    :\'(") + "\nIP: " + n.ip )
-			window.document.location.href = window.location.href + "nodes/" + n.name;
+			if (event.shiftKey) window.document.location.href = window.location.href +  n.name;
+      else window.document.location.href = window.location.href + "nodes/" + n.name;
 		}
-	})
+	});
 }
 
-ws.onclose = function (event) {
-  alert("Сервер отказался отправлять вам данные")
+
+
+ws.onopen = function (event) {
+    ws.onclose = function (event) {
+    alert("Сервер отказался отправлять вам данные");
+  }
 }
 
 

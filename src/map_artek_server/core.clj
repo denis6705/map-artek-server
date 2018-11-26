@@ -64,10 +64,11 @@
 
 (defroutes all-routes
   (GET "/db" [] #'db-handler)
+  (GET "/ws" [] #'ws-handler)
   (GET "/" [] #'index)
   (GET "/nodes/:node-name" [node-name] #'node-stats)
-  (GET "/node-from-db" [] #'node-from-db)
-  (GET "/ws" [] #'ws-handler)
+  (GET "/:node-name" [node-name] #'node-from-db)
+
   (resources "/")
   (not-found "<p>Page not found.</p>"))
 
