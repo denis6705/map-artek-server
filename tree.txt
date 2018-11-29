@@ -1,0 +1,55 @@
+Структура папок
+Серийный номер тома: 8871-FBBE
+C:.
+|   .gitignore
+|   .gorilla-port
+|   .lein-repl-history
+|   .nrepl-port
+|   CHANGELOG.md
+|   Dockerfile
+|   LICENSE
+|   nodes.json
+|   project.clj
+|   README.md
+|   tree.txt
+|   
++---db
+|       database.db
+|       
++---doc
+|       intro.md
+|       
++---resources
+|   \---public
+|       +---images
+|       |       green.png
+|       |       map.png
+|       |       red.png
+|       |       
+|       +---js
+|       |       c3.min.css
+|       |       c3.min.js
+|       |       d3.min.js
+|       |       get-from-db.js
+|       |       script.js
+|       |       
+|       \---nodes
+|           \---js
+|                   c3.min.css
+|                   c3.min.js
+|                   d3.min.js
+|                   show-pings.js
+|                   
++---src
+|   \---map_artek_server
+|           core.clj
+|           database.clj
+|           ping.clj
+|           send-email.clj
+|           ssh-client.clj
+|           views.clj
+|           
+\---test
+    \---map_artek_server
+            core_test.clj
+

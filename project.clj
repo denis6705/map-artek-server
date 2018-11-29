@@ -15,8 +15,12 @@
                  [clj-time "0.15.0"]
                  [org.clojure/java.jdbc "0.7.8"]
                  [org.xerial/sqlite-jdbc "3.8.6"]
+                 [clj-ssh "0.5.14"]
+                 [com.draines/postal "2.0.3"]
+                 [lein-gorilla "0.4.0"]
                  [proto-repl "0.3.1"]]
 
   :main ^:skip-aot map-artek-server.core
   :target-path "target/%s"
+  :plugins [[lein-gorilla "0.4.0"]]
   :profiles {:uberjar {:aot :all}})
