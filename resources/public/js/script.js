@@ -16,10 +16,15 @@ map.onload = function() {
 
 
 canvas.onclick = function(event) {
-	let X1 = event.layerX - 10;
-	let Y1 = event.layerY - 10;
-	let X2 = event.layerX + 10;
-	let Y2 = event.layerY + 10;
+	let X1 = event.clientX - 10;
+	let Y1 = event.clientY - 10;
+	let X2 = event.clientX + 10;
+	let Y2 = event.clientY + 10;
+	
+	X1 -= 8;
+	X2 -= 8;
+	Y1 -= 8;
+	Y2 -= 8;
 
 	console.log(event);
 
