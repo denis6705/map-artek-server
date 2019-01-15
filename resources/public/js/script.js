@@ -8,6 +8,8 @@ red = new Image();
 red.src = "images/red.png";
 green = new Image();
 green.src = "images/green.png";
+orange = new Image();
+orange.src = "images/orange.png";
 var nodes = {};
 
 map.onload = function() {
@@ -20,7 +22,7 @@ canvas.onclick = function(event) {
 	let Y1 = event.clientY - 10;
 	let X2 = event.clientX + 10;
 	let Y2 = event.clientY + 10;
-	
+
 	X1 -= 8;
 	X2 -= 8;
 	Y1 -= 8;
@@ -51,9 +53,15 @@ ws.onmessage = function (event) {
 	nodes = JSON.parse(event.data);
 	for(node in nodes) {
 		if (nodes[node].result == true){
-			ctx.drawImage(green, nodes[node].x, nodes[node].y, 10, 10);
-			ctx.fillStyle = "green";
-			ctx.fillText(nodes[node].name, nodes[node].x-10, nodes[node].y-2);
+      if (nodes[node].type == "reg") {
+        ctx.drawImage(orange, nodes[node].x, nodes[node].y, 10, 10);
+			  ctx.fillStyle = "orange";
+			  ctx.fillText(nodes[node].name, nodes[node].x-10, nodes[node].y-2);
+      } else {
+			  ctx.drawImage(green, nodes[node].x, nodes[node].y, 10, 10);
+			  ctx.fillStyle = "green";
+			  ctx.fillText(nodes[node].name, nodes[node].x-10, nodes[node].y-2);
+      }
 		} else {
 			ctx.drawImage(red,nodes[node].x, nodes[node].y, 10, 10);
 			ctx.fillStyle = "red";
