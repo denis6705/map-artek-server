@@ -10,6 +10,8 @@ green = new Image();
 green.src = "images/green.png";
 orange = new Image();
 orange.src = "images/orange.png";
+pink = new Image();
+pink.src = "images/pink.png";
 var nodes = {};
 
 map.onload = function() {
@@ -43,7 +45,7 @@ canvas.onclick = function(event) {
 
 ws.onopen = function (event) {
     ws.onclose = function (event) {
-    alert("Сервер отказался отправлять вам данные");
+    alert("Сервер перестал отправлять вам данные");
   }
 }
 
@@ -55,17 +57,19 @@ ws.onmessage = function (event) {
 		if (nodes[node].result == true){
       if (nodes[node].type == "reg") {
         ctx.drawImage(orange, nodes[node].x, nodes[node].y, 10, 10);
-			  ctx.fillStyle = "orange";
-			  ctx.fillText(nodes[node].name, nodes[node].x-10, nodes[node].y-2);
       } else {
 			  ctx.drawImage(green, nodes[node].x, nodes[node].y, 10, 10);
-			  ctx.fillStyle = "green";
+			  ctx.fillStyle = "blue";
 			  ctx.fillText(nodes[node].name, nodes[node].x-10, nodes[node].y-2);
       }
 		} else {
-			ctx.drawImage(red,nodes[node].x, nodes[node].y, 10, 10);
-			ctx.fillStyle = "red";
-			ctx.fillText(nodes[node].name, nodes[node].x-10, nodes[node].y-2);
+      if(nodes[node].type == "reg") {
+        ctx.drawImage(pink,nodes[node].x, nodes[node].y, 10, 10);
+      }else{
+			  ctx.drawImage(red,nodes[node].x, nodes[node].y, 10, 10);
+			  ctx.fillStyle = "red";
+			  ctx.fillText(nodes[node].name, nodes[node].x-10, nodes[node].y-2);
+      }
 		}
 	}
 }
