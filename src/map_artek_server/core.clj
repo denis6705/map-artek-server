@@ -9,7 +9,6 @@
             [map-artek-server.ping :refer [ping]]
             [map-artek-server.views :refer :all]
             [map-artek-server.database :refer [push-pings-db get-pings-for-node-between]]
-            [clj-time.core :as time]
             [clj-time.local :as l])
   (:use [clojure.tools.namespace.repl :only (refresh)])
   (:gen-class))
@@ -80,4 +79,3 @@
    (write-to-base 60000)
    (reset! server (run-server (site #'all-routes) {:port 80}))
    (println "Server started on 127.0.0.1:80"))
-

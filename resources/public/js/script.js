@@ -56,15 +56,15 @@ ws.onmessage = function (event) {
 	for(node in nodes) {
 		if (nodes[node].result == true){
       if (nodes[node].type == "reg") {
-        ctx.drawImage(orange, nodes[node].x, nodes[node].y, 10, 10);
+        ctx.drawImage(orange, nodes[node].x, nodes[node].y, 9, 9);
       } else {
 			  ctx.drawImage(green, nodes[node].x, nodes[node].y, 10, 10);
-			  ctx.fillStyle = "blue";
+			  ctx.fillStyle = "green";
 			  ctx.fillText(nodes[node].name, nodes[node].x-10, nodes[node].y-2);
       }
 		} else {
       if(nodes[node].type == "reg") {
-        ctx.drawImage(pink,nodes[node].x, nodes[node].y, 10, 10);
+        ctx.drawImage(pink,nodes[node].x, nodes[node].y, 9, 9);
       }else{
 			  ctx.drawImage(red,nodes[node].x, nodes[node].y, 10, 10);
 			  ctx.fillStyle = "red";
