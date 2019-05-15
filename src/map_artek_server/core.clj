@@ -75,7 +75,7 @@
 
 (defn -main
   [& args]
-   (process_messages 2000)
+   (process_messages 5000)
    (write-to-base 60000)
    (reset! server (run-server (site #'all-routes) {:port 80}))
    (println "Server started on 127.0.0.1:80"))

@@ -11,4 +11,4 @@
      :result result}))
 (defn ping
   [ip]
-  (timed-ping ip 1000))
+  (timed-ping ip 4000))
